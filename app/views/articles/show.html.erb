@@ -1,5 +1,8 @@
 <h1>Showing article details</h1>
 <p>
+  Written By: <%= @article.user.username if @article.user %>
+</p>
+<p>
   Title: <strong> <%= @article.title %></strong>
 </p>
 <p>
