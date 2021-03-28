@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, onlt: [:show, :edit, :update]
-
+  before_action :set_user, only: [:show, :edit, :update]
+  before_action :is_user?, only: [:edit, :update]
 
   def show
     @articles = @user.articles.paginate(page: params[:page], per_page: 5)
@@ -45,4 +45,12 @@ class UsersController < ApplicationController
   def set_user
     @user = User.find(params[:id])
   end
+
+  def is_user?
+    if current_user != @user
+      flash[:alert] = "You can only update your own account information."
+      redirect_to @user
+    end
+  end
+
 end
